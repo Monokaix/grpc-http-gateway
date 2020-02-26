@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ecos;
+option go_package = "proto";
+
+import "google/api/annotations.proto";
+
+service SayHello {
+    rpc Hello (HelloReq) returns (HelloResp){
+        option (google.api.http) = {
+        post : "/hello"
+        body: "*"
+    };
+    }
+    rpc Hello2 (HelloReq) returns (HelloResp){
+        option (google.api.http) = {
+        get : "/hello2"
+    };
+    }
+}
+
+message HelloReq {
+
+}
+
+message HelloResp {
+    string Resp = 1;
+}

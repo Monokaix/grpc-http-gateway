@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-test
+  labels:
+    app: grpc-test
+  annotations:
+    consul.hashicorp.com/service-sync: "true"
+    consul.hashicorp.com/service-name: grpc-test
+    consul.hashicorp.com/service-tags: "grpc_name:ecos.ECOS,group:sre,type:backend,env:test,req:grpc"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 6001
+    name: grpc
+    protocol: TCP
+  selector:
+    app: grpc-test
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: grpc-test
+  labels:
+    app: grpc-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-test
+  template:
+    metadata:
+      labels:
+        app: grpc-test
+    spec:
+      containers:
+      - name: grpc-test
+        image: 2536818783/grpc-demo:0.3
+        ports:
+        - containerPort: 6001
+          name: grpc
+          protocol: TCP
