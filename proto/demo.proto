@@ -8,13 +8,13 @@ import "google/api/annotations.proto";
 service SayHello {
     rpc Hello (HelloReq) returns (HelloResp){
         option (google.api.http) = {
-        post : "/hello"
+        post : "/ecos.SayHello/hello"
         body: "*"
     };
     }
     rpc Hello2 (HelloReq) returns (HelloResp){
         option (google.api.http) = {
-        get : "/hello2"
+        get : "/ecos.SayHello/hello2"
     };
     }
 }
